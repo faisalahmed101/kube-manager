@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-manager
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-manager
+  namespace: kube-manager
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kube-manager-readonly
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces", "pods"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kube-manager-readonly
+subjects:
+  - kind: ServiceAccount
+    name: kube-manager
+    namespace: kube-manager
+roleRef:
+  kind: ClusterRole
+  name: kube-manager-readonly
+  apiGroup: rbac.authorization.k8s.io
