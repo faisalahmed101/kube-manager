@@ -8,4 +8,4 @@ Dockerfile
 README.md
 k8s
 npm-debug.log*
-.DS_Store
+DS_Store
